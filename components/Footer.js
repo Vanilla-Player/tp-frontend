@@ -1,21 +1,37 @@
+import Link from 'next/link'
+import { Container } from '../components/Container.js';
 
+function NavLink({ href, children }) {
+  return (
+    <Link
+        href={href}
+        className="transition hover:text-teal-400"
+    >{children}
+    </Link>
+  )
+}
 
-export default function Footer (){
-
-    return(
-        <footer>
-            <div className="bg-neutral-900 container m-auto text-white text-center pb-10 ">
-                <h1 className="text-[72px]">ChatWithMe</h1>
-                <p className="font-semibold text-[20px]">ChatWithMe is chat website where you could communicate with friends beyond<br/> a well design UI.
-                Here you can write what you want to whoever you want. 
-                </p>
-                <div className="flex flex-row bg-inherit justify-center mt-10">
-                    <img src="/icons/linkedin-round-icon.svg" className="w-10 border rounded-full bg-white mx-2"></img>
-                    <img src="/icons/youtube-round-icon.svg" className="w-10 border rounded-full bg-white mx-2"></img>
-                    <img src="/icons/facebook-round-icon.svg" className="w-10 border rounded-full bg-white mx-2"></img>
-                    <img src="/icons/twitter-round-icon.svg" className="w-10 border rounded-full bg-white mx-2"></img>
-                </div>
+export default function Footer() {
+  return (
+    <footer className="mt-32 backdrop-blur bg-zinc-900 ring-1 ring-zinc-600/50">
+    <Container.Outer>
+      <div className="border-t pb-16 pt-10 border-zinc-700/40">
+        <Container.Inner>
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <div className="flex gap-6 text-sm font-medium  text-zinc-200">
+              <NavLink href="/about">About</NavLink>
+              <NavLink href="/projects">Projects</NavLink>
+              <NavLink href="/speaking">Speaking</NavLink>
+              <NavLink href="/uses">Uses</NavLink>
             </div>
-        </footer>
-    )
+            <p className="text-sm text-zinc-500">
+              &copy; {new Date().getFullYear()} Arms Code. All rights
+              reserved.
+            </p>
+          </div>
+        </Container.Inner>
+      </div>
+    </Container.Outer>
+  </footer>
+  )
 }

@@ -5,7 +5,7 @@ export default function FormMessage({
   message,
 }) {
   return (
-    <div className="h-auto w-full">
+    <div className="h-auto w-full px-2 py-1">
       <form className="flex items-center h-auto justify-between w-full border-t-2 p-2 bg-neutral-800 border-black relative">
         <input
           type="text"

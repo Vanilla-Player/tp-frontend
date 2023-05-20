@@ -1,16 +1,13 @@
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
+import { urlUsers } from "../../../utils/constants";
 
 export default async function loginHandler(req, res){
     
     const { username, password } = req.body;
-
-    const responseAPI = await fetch("http://localhost:9000/api/v1/users/");
-
+    const responseAPI = await fetch(urlUsers);
     const data =  await responseAPI.json();
     const users = data.users;
-
-      
     const loggedUser = await users.filter((user) =>{
         return (user.name === username && user.password === password)
     });

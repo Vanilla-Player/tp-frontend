@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.10",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.17",
+    "clsx": "^1.2.1",
     "cookie": "^0.5.0",
     "jsonwebtoken": "^8.5.1",
     "next": "12.2.5",

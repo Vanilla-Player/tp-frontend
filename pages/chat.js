@@ -35,11 +35,7 @@ export default function Chat(params) {
     heigth: null,
     width: null,
   });
-  // Se podria guardar la opcion del usuario en el local storage
-  const [darkMode, setDarkMode] = useState(true);
-
   const exitChat = () => setIsOpen(false);
-
   const {user} =  useUser()
 
 
@@ -58,11 +54,6 @@ export default function Chat(params) {
 
   const handleClickHeader = (event) => {
     setStatusMenu(event.target.getAttribute("name"));
-  };
-
-  const handleClickDarkButton = (event) => {
-    event.preventDefault();
-    setDarkMode(!darkMode);
   };
 
   // Efecto que ocurre cuando se clickea una Card Amigo o Desconocido y triggerea el cambio en el dashboard
@@ -121,6 +112,7 @@ export default function Chat(params) {
         {statusMenu === "Chats" && (
           <FriendList
             handleChat={handleChatIsOpen}
+            setStatusMenu={setStatusMenu}
             friendList={friendsInList}
             usersNotInFriendList={usersNotInFriendList}
             dataChatHistory={messagesHistory}
@@ -128,7 +120,7 @@ export default function Chat(params) {
           />
         )}
         {statusMenu === "Find" && (
-          <NotFriendsList data={usersNotInFriendList} />
+          <NotFriendsList data={usersNotInFriendList} setStatusMenu={setStatusMenu} />
         )}
         {statusMenu === "Archived" && (
           <ArchivedList
@@ -137,6 +129,7 @@ export default function Chat(params) {
             usersNotInFriendList={usersNotInFriendList}
           />
         )}
+        <Footer />
       </div>
       <div
         className={`h-full sm:w-1/2 xl:w-2/3 sm:block ${

@@ -1,9 +1,8 @@
 import FormLogin from "./FormLogin";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUser } from "../../context/userContext";
 import { useRouter } from "next/router";
-
-const endpoint = "http://localhost:9000/api/v1/users/";
+import { urlUsers } from "../../utils/constants";
 
 export default function LoginContaner(props) {
   const router = useRouter();
@@ -42,7 +41,7 @@ export default function LoginContaner(props) {
     // const response = await fetch('/api/auth/login', options);
 
     // return response.json()
-    const response = await fetch(endpoint);
+    const response = await fetch(urlUsers);
     const data = await response.json();
     const users = data.users;
 

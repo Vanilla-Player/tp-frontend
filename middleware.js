@@ -5,7 +5,7 @@ import { useUser } from "./context/userContext";
 
 export async function middleware(request) {
   const jwt = await request.cookies.get("userToken");
-
+  
   // if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
   // Faltaria validar si la Cookie es correcta
   // Pero se necesita otra libreria, debido a que jwt no corre en edge
