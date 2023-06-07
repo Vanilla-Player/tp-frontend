@@ -5,6 +5,7 @@ import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 import { urlUsers, urlSingIn } from "../utils/constants";
 import loginBack from "../public/loginBack.svg"
+import Cookies from "js-cookie";
 
 const JWT = require("jsonwebtoken");
 
@@ -41,16 +42,20 @@ export default function Login(props) {
 
     const response = await fetch(urlSingIn, options);
     const data = await response.json();
-    const decodeJWT = JWT.decode(data.jwt);
-    const user = decodeJWT.user;
+    const decodeJWT = await JWT.decode(data.jwt);
+    const user = await decodeJWT.user;
 
     if (!user) {
       setError(true);
       return;
-    } // Hardcode, por si se erra en el login
-    // // Creo la cookie, en caso de que no haya usuario, devuelvo un forbiden y algun
+    }
+    
+
+    Cookies.set('User', data.jwt)
+
 
     setUser(user);
+
     
     router.push("/chat");
   };

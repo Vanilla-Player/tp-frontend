@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+
 // Dynamics imports
 import Footer from "../components/FriendList/Footer";
 import FriendList from "../components/FriendList/FriendList";
@@ -15,13 +16,16 @@ import {
   getMessageHistory,
 } from "../utils/api";
 import {useUser} from '../context/userContext'
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+const JWT = require("jsonwebtoken");
 
 // Traigo todos los mensajes del usuario que esta "logeado" con OTRO ENDPOINT para facilitar la request
 //con los mensajes del usuario al que clickeo el chat y viceversa
 // despues ordeno por fecha y los muestro de manera descendiente
 // Testing user id: 62eaa14c3901f21e944abfcd
 
-export default function Chat(params) {
+export default function Chat({userSession}) {
   const [statusMenu, setStatusMenu] = useState("Chats");
   const [searchFriend, setSearchFriend] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +40,8 @@ export default function Chat(params) {
     width: null,
   });
   const exitChat = () => setIsOpen(false);
-  const {user} =  useUser()
+  const {user, setUser} =  useUser()
+  const router = useRouter();
 
 
   const handleChatIsOpen = (idFriend) => {
@@ -47,6 +52,11 @@ export default function Chat(params) {
       setFriend(f);
     }
   };
+
+  const handleSignOut = (e) =>{
+    Cookies.remove("User");
+    router.push('/')
+  }
 
   const handleChangeSearchBar = (event) => {
     setSearchFriend(event.target.value);
@@ -72,22 +82,29 @@ export default function Chat(params) {
 
   // Efecto que se activa cuando el menu cambia de un estado a otro
   useEffect(() => {
-    getUsersNotInFriendList(user._id).then((value) => setUsersNotInFriendList(value));
-    getFriendList(user._id).then((value) => setFriendsInList(value));
-    getArchivedMessages(user._id).then((value) => setArchivedMessages(value));
+    
+    getUsersNotInFriendList(userSession._id).then((value) => setUsersNotInFriendList(value)); // Utilizamos el ususario de la session
+    getFriendList(userSession._id).then((value) => setFriendsInList(value));
+    getArchivedMessages(userSession._id).then((value) => setArchivedMessages(value));
   }, [statusMenu]);
 
   // Efecto que se activa una vez para traer todos los mensajes del usuario logeado
   useEffect(() => {
+    const item = localStorage.getItem("User")
+  
+    if(!item) router.push("/login")
+
+    setUser(JSON.parse(item))
+
     function handleResize() {
       setDimensions({
         width: window.innerWidth,
       });
     }
     window.addEventListener("resize", handleResize);
-    getMessageHistory(user._id).then((value) => setMessagesHistory(value));
+    getMessageHistory(userSession._id).then((value) => setMessagesHistory(value));
     const intervalID = setInterval(() => {
-      getMessageHistory(user._id).then((value) => setMessagesHistory(value));
+      getMessageHistory(userSession._id).then((value) => setMessagesHistory(value));
     }, 1000);
 
     return () => {
@@ -129,7 +146,7 @@ export default function Chat(params) {
             usersNotInFriendList={usersNotInFriendList}
           />
         )}
-        <Footer />
+        <Footer handleSignOut={handleSignOut} />
       </div>
       <div
         className={`h-full sm:w-1/2 xl:w-2/3 sm:block ${
@@ -154,4 +171,24 @@ export default function Chat(params) {
       
     </div>
   );
+}
+
+
+
+export const getServerSideProps = async (context) => {
+
+  if(!context.req.cookies["User"]){
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const userSession = JWT.decode(context.req.cookies["User"]).user
+
+
+  
+  return { props: {userSession}}
 }

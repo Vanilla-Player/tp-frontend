@@ -1,9 +1,10 @@
-export default function Footer(params) {
+export default function Footer({handleSignOut}) {
   return (
     <li className="w-full h-32 border-t border-t-gray-600">
       <a
         href="#_"
         class="mx-auto flex justify-center items-center w-1/2 px-6 py-2 text-base font-semibold text-center text-white rounded-lg bg-black  hover:bg-[#6d686822]"
+        onClick={(e) => handleSignOut(e)}
       >
         Cerrar sesion
         <svg
