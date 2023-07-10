@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Hero from "../components/Hero";
+import Body from "../components/Body";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
@@ -14,7 +14,7 @@ export default function Home() {
         </Head>
         <Header />
         <div className="shadow-2xl container mx-auto w-full bg-zinc-900 ring-1 ring-zinc-300/20 h-full 2xl:h-screen">
-          <Hero />
+          <Body />
         </div>
           <Footer />
       </div>
