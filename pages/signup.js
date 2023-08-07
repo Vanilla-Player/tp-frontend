@@ -13,13 +13,15 @@ export default function SignUp(){
     const [emailForm, setEmailForm] = useState("");
     const [passwordForm, setPasswordForm] = useState("");
     const [passwordForm2, setPasswordForm2] = useState("");
+    const [imageForm, setImage] = useState(null)
 
     // Manejar cambios en los inputs
-    const handleChangeInput = (event) => {
+    const handleChangeInput = async (event) => {
         if(event.target.placeholder == "Contrasena") {setPasswordForm(event.target.value);}
         if(event.target.placeholder == "Usuario"){setUsernameForm(event.target.value);}
         if(event.target.placeholder == "Email"){setEmailForm(event.target.value)}
         if(event.target.placeholder == "Repita Contrasena"){setPasswordForm2(event.target.value)}
+        if(event.target.placeholder == "Image"){setImage(event.target.files[0])}
         
     };
 
@@ -28,6 +30,8 @@ export default function SignUp(){
 
         if(passwordForm != passwordForm2) return;
 
+       // const imageURL = await 'http://localhost:9000/uploads/' + imageForm.replace('C:\\fakepath\\','');
+
 
         // poner los del form del usuario en la  variable del nuevo user
         const newUserData = {
@@ -35,11 +39,14 @@ export default function SignUp(){
             email: emailForm,
             password: passwordForm,
             description:"",
+            file: imageForm
         }
 
-        const response = await postUser(newUserData)
+        
 
-        if(response) router.push('/login')
+    const response = await postUser(newUserData)
+
+    if(response) router.push('/login')
 
     };
 
@@ -62,6 +69,7 @@ export default function SignUp(){
                 password={passwordForm}
                 password2={passwordForm2}
                 email={emailForm}
+                image={imageForm}
             />
             </div>
         </div>

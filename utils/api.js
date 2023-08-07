@@ -87,19 +87,28 @@ export function filterMessages(messages) {
 
 export async function postUser(userData){
 
-  const data = {
+  const bodyData = await new FormData();
 
+
+  for(const key in userData){
+     await bodyData.append(key, userData[key])
   }
 
-  const JSONdata = JSON.stringify(userData)
-  console.log(userData)
+
+  //const JSONdata = JSON.stringify({name,password,email,file, description:''})
+  //console.log(JSONdata)
+
+
+ 
 
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
+      //"Content-Type": "application/json", // Hacer andar en back
     },
-    body: JSONdata,
+    body: bodyData,
+
   };
 
   const response = await fetch(urlUserCreate, options)
