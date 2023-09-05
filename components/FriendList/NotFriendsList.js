@@ -15,7 +15,7 @@ export default function NotFriendsList({ data, setStatusMenu }) {
   return (
     <div className="container py-4 text-white ">
       <h2 className="text-left py-2 px-4 font-semibold border-b border-b-gray-600 text-gray-300 mb-2">
-        Agrega nuevas personas!
+        Agrega nuevas personas
       </h2>
       <ul className="max-h-[650px] min-h-[650px] grid grid-flow-row auto-rows-max gap-2 px-4 overflow-y-auto scrollbar-thin hover:scrollbar-thumb-neutral-500  scrollbar-track-neutral-800">
         {data.map((user, index) => {

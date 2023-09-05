@@ -1,10 +1,3 @@
-<<<<<<< Updated upstream
-=======
-import { useState } from "react";
-import { useUser } from "../context/userContext";
-import { useRouter } from "next/router";
-import FormLogin from "../components/Login/FormLogin";
->>>>>>> Stashed changes
 import Link from "next/link";
 import FormLogin from "../components/Login/FormLogin";
 import { useState } from "react";
@@ -13,11 +6,8 @@ import { useRouter } from "next/router";
 import { urlUsers, urlSingIn } from "../utils/constants";
 import loginBack from "../public/loginBack.svg"
 
-<<<<<<< Updated upstream
 const JWT = require("jsonwebtoken");
 
-=======
->>>>>>> Stashed changes
 export default function Login(props) {
   const router = useRouter();
 

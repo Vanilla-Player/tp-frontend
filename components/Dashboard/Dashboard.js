@@ -1,8 +1,8 @@
 import ContainerMessages from "./ContainerMessages";
 import HeaderProfile from "./HeaderProfile";
 import FormMessage from "./FormMessage";
-import { useEffect, useState } from "react";
-import { filterMessages, postMessage } from "../../utils/api";
+import { useState } from "react";
+import { filterMessages, getArchivedMessages, postArchivedMessages, postMessage } from "../../utils/api";
 import {useUser} from '../../context/userContext';
 
 

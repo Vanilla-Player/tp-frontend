@@ -14,12 +14,10 @@ import {
   getArchivedMessages,
   getMessageHistory,
 } from "../utils/api";
-import {useUser} from '../context/userContext'
+import { useUser } from '../context/userContext'
 
 // Traigo todos los mensajes del usuario que esta "logeado" con OTRO ENDPOINT para facilitar la request
-//con los mensajes del usuario al que clickeo el chat y viceversa
-// despues ordeno por fecha y los muestro de manera descendiente
-// Testing user id: 62eaa14c3901f21e944abfcd
+// con los mensajes del usuario al que clickeo el chat y viceversa despues ordeno por fecha y los muestro de manera descendiente
 
 export default function Chat(params) {
   const [statusMenu, setStatusMenu] = useState("Chats");
@@ -70,12 +68,13 @@ export default function Chat(params) {
     filterMsg();
   }, [friend, messagesHistory]);
 
+
   // Efecto que se activa cuando el menu cambia de un estado a otro
   useEffect(() => {
     getUsersNotInFriendList(user._id).then((value) => setUsersNotInFriendList(value));
     getFriendList(user._id).then((value) => setFriendsInList(value));
     getArchivedMessages(user._id).then((value) => setArchivedMessages(value));
-  }, [statusMenu]);
+  }, [statusMenu, archivedMessages]);
 
   // Efecto que se activa una vez para traer todos los mensajes del usuario logeado
   useEffect(() => {
@@ -141,9 +140,9 @@ export default function Chat(params) {
         {isOpen ? (
           <Dashboard
             messages={dataChatUser}
+            archivedMessages={archivedMessages}
             exitChat={exitChat}
             friend={friend}
-            archivedMessages={archivedMessages}
           />
         ) : (
           // Hacer componente

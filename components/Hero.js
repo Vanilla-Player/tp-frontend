@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
 import Icons from "./Icons";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react";
 import { Container } from "./Container";
 import {
   GitHubIcon,
