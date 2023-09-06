@@ -13,8 +13,10 @@ export default async function loginHandler(req, res){
     });
 
     if(loggedUser == []) {setError(true);
-        return res.status(401).json('no valid')}; // Hardcode, por si se erra en el login
-      // // Creo la cookie, en caso de que no haya usuario, devuelvo un forbiden y algun
+        return res.status(401).json('no valid')};
+        
+        // Hardcode, por si se erra en el login
+        // Creo la cookie, en caso de que no haya usuario, devuelvo un forbiden y algun
       
       const token = await sign({
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,

@@ -3,7 +3,7 @@ import FormLogin from "../components/Login/FormLogin";
 import { useState } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
-import { urlUsers, urlSingIn } from "../utils/constants";
+import { urlSingIn } from "../utils/constants";
 import loginBack from "../public/loginBack.svg"
 import Cookies from "js-cookie";
 

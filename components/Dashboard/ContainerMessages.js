@@ -6,7 +6,7 @@ export default function ContainerMessages({ messages, archivedMessages }) {
 
   // context
 
-  const {user} = useUser()
+  const { user } = useUser();
 
   return (
     <div
@@ -21,7 +21,7 @@ export default function ContainerMessages({ messages, archivedMessages }) {
         {messages.map((m, i) => {
           if (m !== undefined) {
             return (
-              <Message data={m} idUserLogged={m.sender === user._id} />
+              <Message data={m} idUserLogged={m.sender === user?._id} />
             );
           }
         })}
