@@ -1,5 +1,3 @@
-
-export const idUserLogged = "62eaa14c3901f21e944abfcd";
 import {
   urlUserCreate,
   urlMessages,
@@ -32,6 +30,36 @@ export async function getArchivedMessages(idUser) {
 
   return archivedMessages;
 }
+
+export async function postArchivedMessages(idUser, messageId) {
+  const endpoint = urlArchivedMessages + idUser;
+  const body = JSON.stringify({ idMsg: messageId});
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  };
+  await fetch(endpoint, options);
+}
+
+export async function deleteArchivedMessages(idUser, messageId) {
+  const endpoint = urlArchivedMessages + idUser;
+  const body = JSON.stringify({ idMsg: messageId});
+
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  };
+  await fetch(endpoint, options);
+}
+
+
 
 export async function getMessageHistory(idUser) {
   const endpoint = urlMessages + idUser;

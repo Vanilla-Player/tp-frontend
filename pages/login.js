@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 import { urlSingIn } from "../utils/constants";
-import loginBack from "../public/loginBack.svg"
+import loginBack from "../public/loginBack.svg";
 import Cookies from "js-cookie";
 
 const JWT = require("jsonwebtoken");
@@ -42,31 +42,28 @@ export default function Login(props) {
 
     const response = await fetch(urlSingIn, options);
     const data = await response.json();
-    const decodeJWT = await JWT.decode(data.jwt);
-    const user = await decodeJWT.user;
+    const decodeJWT = JWT.decode(data.jwt);
+    const user = decodeJWT?.user || null;
 
     if (!user) {
       setError(true);
       return;
     }
-    
 
-    Cookies.set('User', data.jwt)
-
+    Cookies.set("User", data.jwt);
 
     setUser(user);
 
-    
     router.push("/chat");
   };
 
   return (
-    <div className={`relative bg-[url('/loginBack.svg')] flex justify-center items-center h-screen w-screen bg-neutral-700`} style={{ backgroundImage: `url(${loginBack})` }}>
+    <div className="relative flex justify-center items-center h-screen w-screen bg-neutral-700">
       <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-[400px] sm:h-[300px] w-full h-full sm:rounded-2xl relative shadow-lg ">
-        <div className="absolute top-6 left-6 cursor-pointer p-1 hover:bg-slate-600 hover:rounded-full">
+        <div className="absolute p-2 top-6 left-6 cursor-pointer hover:bg-gray-600 hover:rounded-full">
           <Link href="/">
             <svg
-              className="h-8 w-8 sm:h-10 sm:w-10 text-black"
+              className="h-8 w-8 sm:h-8 sm:w-8 text-black "
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -74,7 +71,7 @@ export default function Login(props) {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
               />

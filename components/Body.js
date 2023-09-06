@@ -6,7 +6,7 @@ import {
   InstagramIcon,
   LinkedInIcon,
   TwitterIcon,
-} from "../components/SocialIcons.js";
+} from "./SocialIcons.js";
 
 function SocialLink({ icon: Icon, ...props }) {
   return (
@@ -16,7 +16,7 @@ function SocialLink({ icon: Icon, ...props }) {
   );
 }
 
-export default function Hero() {
+export default function Body() {
   return (
     <section className="text-neutral-300">
       <div className="flex lg:flex-row flex-col mx-auto mt-2">
@@ -61,7 +61,7 @@ export default function Hero() {
             <img
               src="/HomeImage.png"
               alt="billing"
-              className="w-full h-auto object-cover object-center sm:w-auto sm:h-auto"
+              className="w-[100%] h-[100%] relative z-[5] "
             />
           </div>
         </Container>

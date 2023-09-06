@@ -76,12 +76,13 @@ export default function Chat({userSession}) {
     filterMsg();
   }, [friend, messagesHistory]);
 
+
   // Efecto que se activa cuando el menu cambia de un estado a otro
   useEffect(() => {
     getUsersNotInFriendList(userSession._id).then((value) => setUsersNotInFriendList(value)); // Utilizamos el ususario de la session
     getFriendList(userSession._id).then((value) => setFriendsInList(value));
     getArchivedMessages(userSession._id).then((value) => setArchivedMessages(value));
-  }, [statusMenu]);
+  }, [statusMenu, archivedMessages]);
 
   // Efecto que se activa una vez para traer todos los mensajes del usuario logeado
   useEffect(() => {
@@ -148,9 +149,9 @@ export default function Chat({userSession}) {
         {isOpen ? (
           <Dashboard
             messages={dataChatUser}
+            archivedMessages={archivedMessages}
             exitChat={exitChat}
             friend={friend}
-            archivedMessages={archivedMessages}
           />
         ) : (
           // Hacer componente
