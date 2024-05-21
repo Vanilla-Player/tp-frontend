@@ -1,15 +1,14 @@
+import {
+  urlUserCreate,
+  urlMessages,
+  urlFriendListFilter,
+  urlFriendList,
+  urlArchivedMessages,
+  urlMessagesToSend,
+} from "./constants.js";
 
-export const idUserLogged = "62eaa14c3901f21e944abfcd";
-const urlUserCreate = `http://localhost:9000/api/v1/users/create`;
-const urlMessages = `http://localhost:9000/api/v1/messages/filter/`;
-const urlFriendListFilter = `http://localhost:9000/api/v1/friendList/filter/`;
-const urlFriendList = `http://localhost:9000/api/v1/friendList/`;
-const urlArchivedMessages = `http://localhost:9000/api/v1/messages/archived/`;
-const urlMessagesToSend = "http://localhost:9000/api/v1/messages/";
 
 export async function getUsersNotInFriendList(idUser) {
-  
-
   const endpoint = urlFriendListFilter + idUser;
   const resUsersNotInFriendList = await fetch(endpoint);
   const usersNotInFriendList = await resUsersNotInFriendList.json();
@@ -21,9 +20,6 @@ export async function getFriendList(idUser) {
   const endpoint = urlFriendList + idUser;
   const resFriendsInList = await fetch(endpoint);
   const friendsInList = await resFriendsInList.json();
-  console.log("endpoint")
-  console.log(endpoint)
-  console.log(friendsInList);
   return friendsInList;
 }
 
@@ -34,6 +30,36 @@ export async function getArchivedMessages(idUser) {
 
   return archivedMessages;
 }
+
+export async function postArchivedMessages(idUser, messageId) {
+  const endpoint = urlArchivedMessages + idUser;
+  const body = JSON.stringify({ idMsg: messageId});
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  };
+  await fetch(endpoint, options);
+}
+
+export async function deleteArchivedMessages(idUser, messageId) {
+  const endpoint = urlArchivedMessages + idUser;
+  const body = JSON.stringify({ idMsg: messageId});
+
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  };
+  await fetch(endpoint, options);
+}
+
+
 
 export async function getMessageHistory(idUser) {
   const endpoint = urlMessages + idUser;
@@ -89,19 +115,28 @@ export function filterMessages(messages) {
 
 export async function postUser(userData){
 
-  const data = {
+  const bodyData = await new FormData();
 
+
+  for(const key in userData){
+     await bodyData.append(key, userData[key])
   }
 
-  const JSONdata = JSON.stringify(userData)
-  console.log(userData)
+
+  //const JSONdata = JSON.stringify({name,password,email,file, description:''})
+  //console.log(JSONdata)
+
+
+ 
 
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
+      //"Content-Type": "application/json", // Hacer andar en back
     },
-    body: JSONdata,
+    body: bodyData,
+
   };
 
   const response = await fetch(urlUserCreate, options)

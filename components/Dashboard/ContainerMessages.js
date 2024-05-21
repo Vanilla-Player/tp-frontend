@@ -1,12 +1,25 @@
 import Message from "./Message";
-import { idUserLogged } from "../../utils/api";
-import {useUser} from '../../context/userContext'
+import { postArchivedMessages, deleteArchivedMessages } from "../../utils/api";
+import { useUser } from "../../context/userContext";
 
 export default function ContainerMessages({ messages, archivedMessages }) {
+  const { user } = useUser();
 
-  // context
+  const handleSaveMessage = async (messageId) => {
+    await postArchivedMessages(user._id, messageId);
+  };
 
-  const {user} = useUser()
+  const handleRemoveMessage = async (messageId) => {
+    await deleteArchivedMessages(user._id, messageId);
+  }
+
+  const isArchived = (messageId) => {
+    const idx = archivedMessages.findIndex((message) => {
+      return message._id === messageId;
+    });
+
+    return idx !== -1;
+  };
 
   return (
     <div
@@ -21,7 +34,13 @@ export default function ContainerMessages({ messages, archivedMessages }) {
         {messages.map((m, i) => {
           if (m !== undefined) {
             return (
-              <Message data={m} idUserLogged={m.sender === user._id} />
+              <Message
+                data={m}
+                idUserLogged={m.sender === user._id}
+                saveMessage={handleSaveMessage}
+                removeMessage={handleRemoveMessage}
+                isArchived={isArchived(m._id)}
+              />
             );
           }
         })}

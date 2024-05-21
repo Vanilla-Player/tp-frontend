@@ -1,12 +1,16 @@
 import FriendCard from "./FriendCard";
+import { useUser } from "../../context/userContext";
+import { postAddFriend } from "../../utils/api.js";
 
 export default function FriendList({
   friendList,
   handleChat,
   dataChatHistory,
+  setStatusMenu,
   searchFriend,
   usersNotInFriendList,
 }) {
+  const { user } = useUser();
   
   const allUsers = [...friendList, ...usersNotInFriendList];
   
@@ -36,12 +40,18 @@ export default function FriendList({
     return dataChatHistory.find((msg) => msg.sender === us._id);
   });
 
+  const handleAddFriendClick = async (id) => {
+    await postAddFriend(id, user._id).then((msg) => {
+      alert(msg);
+    });
+  };
+
   return (
-    <div className="container h-full py-4  text-white ">
-      <h2 className="py-2 px-4 font-semibold border-b border-b-gray-600 mb-2">
+    <div className="container py-4 text-white ">
+      <h2 className="text-left py-2 px-4 font-semibold border-b border-b-gray-600 text-gray-300 mb-2">
         Chats
       </h2>
-      <ul className="h-5/6 grid grid-flow-row auto-rows-max gap-2 px-4 overflow-y-auto scrollbar-thin hover:scrollbar-thumb-neutral-500  scrollbar-track-neutral-800 ">
+      <ul className="max-h-[650px] min-h-[650px] grid grid-flow-row auto-rows-max gap-2 px-4 overflow-y-auto scrollbar-thin hover:scrollbar-thumb-neutral-500  scrollbar-track-neutral-800">
         {filteredData.map((friend, index) => {
           return (
             <FriendCard
@@ -59,6 +69,7 @@ export default function FriendList({
           return (
             <FriendCard
               handleChat={handleChat}
+              handleAddFriendClick={handleAddFriendClick}
               data={user}
               isFriend={false}
               lastMessage={{ date: new Date() }}
@@ -67,15 +78,6 @@ export default function FriendList({
           );
         })}
       </ul>
-
-      {/* <details className="p-4 rounded-lg overflow-y-auto h-auto w-full">
-        <summary className="font-semibold cursor-pointer">
-          Unknows Users
-        </summary>
-        <ul className="h-auto grid grid-flow-row auto-rows-max gap-4 px-4 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400  scrollbar-track-gray-200">
-         
-        </ul>
-      </details> */}
     </div>
   );
 }

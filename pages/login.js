@@ -1,65 +1,61 @@
-
-import { useEffect, useState } from "react";
-import {useUser} from '../context/userContext'
-import { useRouter } from 'next/router'
-import FormLogin from "../components/Login/FormLogin"
 import Link from "next/link";
+import FormLogin from "../components/Login/FormLogin";
+import { useState } from "react";
+import { useUser } from "../context/userContext";
+import { useRouter } from "next/router";
+import { urlSingIn } from "../utils/constants";
+import loginBack from "../public/loginBack.svg";
+import Cookies from "js-cookie";
+
 const JWT = require("jsonwebtoken");
 
-const endpoint = "http://localhost:9000/auth/signin" // Cambiar o agregar en utils
+export default function Login(props) {
+  const router = useRouter();
 
-export default function Login(props){
+  const [usernameForm, setUsernameForm] = useState("");
+  const [passwordForm, setPasswordForm] = useState("");
+  const [error, setError] = useState(false);
 
-    const router = useRouter();
+  const { user, setUser } = useUser();
 
-    const [usernameForm, setUsernameForm] = useState("");
-    const [passwordForm, setPasswordForm] = useState("");
-    const [error, setError] = useState(false)
+  const handleChangeInput = (event) => {
+    if (event.target.type == "password") {
+      setPasswordForm(event.target.value);
+    } else {
+      setUsernameForm(event.target.value);
+    }
+  };
 
-    const {user,setUser} = useUser();
+  const handleSubmit = async () => {
+    const JSONdata = JSON.stringify({
+      username: usernameForm,
+      password: passwordForm,
+    });
 
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSONdata,
+    };
 
-    const handleChangeInput = (event) => {
-        if(event.target.type == "password") {setPasswordForm(event.target.value);}
-        else{setUsernameForm(event.target.value);}
-        
-      };
+    const response = await fetch(urlSingIn, options);
+    const data = await response.json();
+    const decodeJWT = JWT.decode(data.jwt);
+    const user = decodeJWT?.user || null;
 
+    if (!user) {
+      setError(true);
+      return;
+    }
 
-    const handleSubmit = async ()=>{
+    Cookies.set("User", data.jwt);
 
+    setUser(user);
 
-
-      const JSONdata = JSON.stringify({username: usernameForm, password:passwordForm})
-
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSONdata
-      };
-
-      const response = await fetch(endpoint,options);
-      const data =  await response.json();
-      const decodeJWT = JWT.decode(data.jwt);
-      const user = decodeJWT.user
-      
-      // const loggedUser = await users.find((user) =>{
-      //   return (user.name === usernameForm && user.password === passwordForm)
-      // });
-
-      if(!user) {setError(true);
-       return}; // Hardcode, por si se erra en el login
-      // // Creo la cookie, en caso de que no haya usuario, devuelvo un forbiden y algun
-
-
-      setUser(user)
-      router.push('/chat')
-
-  }
-
-
+    router.push("/chat");
+  };
 
     return(
         <div className="relative flex justify-center items-center h-screen w-screen bg-neutral-700">
@@ -80,11 +76,9 @@ export default function Login(props){
                   handleChangeInput={handleChangeInput}
                   username={usernameForm}
                   password={passwordForm}
-              />
-            </div>
 
-        </div>
-    )
-
+        />
+      </div>
+    </div>
+  );
 }
-

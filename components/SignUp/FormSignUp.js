@@ -24,6 +24,14 @@ return(
                 >
                 </input>
 
+                <input
+                type="file"
+                placeholder="Image"
+                onChange={(e) => props.handleChangeInput(e)}
+                className="bg-neutral-700 mb-6 ml-4 mr-4 outline-none text-neutral-300 placeholder:text-neutral-300 px-1 grow">
+
+                </input>
+
         </div> 
             <div className="flex flex-row px-6 sm:px-0">
                 <div className="ml-4 bg-neutral-900 mb-6 align-middle">

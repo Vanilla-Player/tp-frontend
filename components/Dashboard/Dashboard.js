@@ -1,8 +1,8 @@
 import ContainerMessages from "./ContainerMessages";
 import HeaderProfile from "./HeaderProfile";
 import FormMessage from "./FormMessage";
-import { useEffect, useState } from "react";
-import { filterMessages, postMessage } from "../../utils/api";
+import { useState } from "react";
+import { filterMessages, getArchivedMessages, postArchivedMessages, postMessage } from "../../utils/api";
 import {useUser} from '../../context/userContext';
 
 
@@ -22,7 +22,7 @@ export default function Dashboard({
   };
 
   const handleSubmit = (event) => {
-    postMessage(messageToSend, friend._id, user._id).then((value) => alert(value.text));
+    postMessage(messageToSend, friend._id, user._id).then(setMessageToSend(""));
     event.preventDefault();
   };
 
@@ -41,7 +41,7 @@ export default function Dashboard({
         message={messageToSend}
       />
       <a
-        className="h-8 w-8 rounded-full hover:bg-neutral-700 text-white cursor-pointer absolute top-5 right-6"
+        className="h-8 w-8 rounded-full hover:bg-neutral-700 text-white cursor-pointer absolute top-3 right-6"
         onClick={() => exitChat()}
       >
         <svg

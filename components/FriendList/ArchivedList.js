@@ -14,18 +14,18 @@ export default function ArchivedList({
   const userData = allUsers.find((user) => {});
 
   return (
-    <div className="p-4">
-      <h2 className=" text-center py-2 px-4 font-semibold border-b border-b-gray-600 text-gray-300 mb-2">
-        Archived Messages
+    <div className="p-4 container text-white">
+      <h2 className="text-left py-2 px-4 font-semibold border-b border-b-gray-600 text-gray-300 mb-2">
+        Mensajes archivados
       </h2>
-      <ul className="h-1/2 grid grid-flow-row auto-rows-max gap-4 text-white px-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400  scrollbar-track-gray-200 py-2">
+      <ul className="max-h-[650px] min-h-[650px] grid grid-flow-row auto-rows-max gap-2 px-4 overflow-y-auto scrollbar-thin hover:scrollbar-thumb-neutral-500  scrollbar-track-neutral-800">
         {data.map((msg, i) => {
           return (
             <li
               key={i}
-              className="h-24 w-full px-2 rounded-l bg-transparent hover:bg-neutral-700 focus:outline-none cursor-pointer transition duration-150 ease-in-out"
+              className="h-16 w-full px-2 flex items-center rounded-l bg-transparent hover:bg-neutral-700 focus:outline-none cursor-pointer transition duration-150 ease-in-out"
             >
-              <a className="h-full flex items-center text-sm md:text-xl">
+              <a className="h-1/2 flex items-center text-sm md:text-xl">
                 <span>{msg.description}</span>
               </a>
             </li>

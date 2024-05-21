@@ -1,5 +1,6 @@
 
 
+
 export default function FormLogin({handleChangeInput, handleSubmit, username, password}){
 
 
@@ -47,7 +48,5 @@ export default function FormLogin({handleChangeInput, handleSubmit, username, pa
                 Log in
             </button>
         </div>
-    )
-
+  );
 }
-

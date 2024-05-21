@@ -1,28 +1,30 @@
+import { createContext, useContext, useState } from "react";
+import Cookies from "js-cookie";
 
-import {createContext, useContext, useState, useMemo} from 'react';
- 
+export const UserContext = createContext();
 
-export const UserContext = createContext()
+export const useUser = () => {
+  const context = useContext(UserContext);
+  return context;
+};
 
-export const useUser = () =>{
+export const UserProvider = ({ children }) => {
+  const JWT = require("jsonwebtoken");
+  
+  const getUserFromStorage = () => {
+    const userCookie = Cookies.get("User");
+    if (userCookie) {
+      const decodeJWT = JWT.decode(userCookie);
+      return decodeJWT.user;
+    }
+    return null;
+  };
 
-    const context = useContext(UserContext)
+  const [user, setUser] = useState(getUserFromStorage());
 
-    return context
-}
-
-
-export const UserProvider = ({children}) =>{
-    const [user, setUser] = useState();
-
-
-    
-
-    return (
-
-        <UserContext.Provider value={{user, setUser}}>
-            {children}
-        </UserContext.Provider>
-    )
-
-}
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
