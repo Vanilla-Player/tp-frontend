@@ -64,10 +64,10 @@ export default function Login(props){
     return(
         <div className="relative flex justify-center items-center h-screen w-screen bg-neutral-700">
 
-          <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-[400px] sm:h-[300px] w-full h-full sm:rounded-2xl relative shadow-white shadow-lg ">
-            <div className="absolute top-0 left-0 cursor-pointer">
+          <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-[300px] sm:h-[300px] w-full h-full sm:rounded-2xl relative shadow-lg ">
+            <div className="absolute top-5 left-5 cursor-pointer">
             <Link href='/'>
-              <svg className="h-10 w-10 sm:h-10 sm:w-10 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <svg className="h-5 w-5 sm:h-8 sm:w-8 text-white rounded-xl hover:bg-neutral-500 transition duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                 <path stroke-linecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
             </Link>
