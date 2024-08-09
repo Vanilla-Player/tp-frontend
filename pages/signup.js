@@ -11,6 +11,9 @@ export default function SignUp() {
   const [emailForm, setEmailForm] = useState("");
   const [passwordForm, setPasswordForm] = useState("");
   const [passwordForm2, setPasswordForm2] = useState("");
+  const [request, setRequest] = useState(false);
+  const [created, setCreated] = useState(false);
+  
 
   const handleChangeInput = (event) => {
     if (event.target.placeholder == "Contrasena") {
@@ -39,17 +42,41 @@ export default function SignUp() {
     };
 
     const response = await postUser(newUserData);
+    // Mensaje de aviso que se creo el usuario
 
-    if (response) router.push("/login");
+    console.log(response);
+    debugger;
+    if(response.status == 201){
+      setCreated(true);
+      setRequest(true);
+      setUsernameForm("");
+      setPasswordForm("");
+      setPasswordForm2("")
+      setEmailForm("");
+    }else{
+      setRequest(true);
+    }
+
+    // if (response) router.push("/login");
   };
 
+
+
   return (
-    <div className="relative flex justify-center items-center h-screen w-screen bg-neutral-700">
-      <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-auto sm:h-[300px] w-full h-full sm:rounded-2xl relative shadow-white shadow-lg ">
+    <div className="relative flex flex-col justify-center items-center h-screen w-screen bg-neutral-700">
+      {request && created && (<div class="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-green-200">
+        <div>Usuario Creado correctamente! <Link href="/login"><span class="text-green-700 hover:text-green-400 cursor-pointe">Ir a Login</span></Link></div>
+        <div class="ml-2 p-1 rounded-xl hover:bg-green-100"><button onClick={()=>{setRequest(false);setCreated(false)}}>X</button></div>
+      </div>)}
+      {request && !created && (<div class="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-red-200">
+        <div>Error al Crear Usuario! </div>
+        <div class="ml-2 p-1 rounded-xl hover:bg-red-100"><button onClick={()=>{setRequest(false)}}>X</button></div>
+      </div>)}
+      <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-auto sm:h-[300px] w-full h-full sm:rounded-2xl relative ">
         <div className="absolute top-0 left-0 cursor-pointer">
           <Link href="/">
             <svg
-              className="h-10 w-10 sm:h-10 sm:w-10 text-black"
+              className="h-10 w-10 mt-2 ml-2 rounded-xl sm:h-10 sm:w-10 text-white hover:bg-neutral-500 transition duration-300"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

@@ -122,7 +122,7 @@ function DesktopNavigation(props) {
   return (
     <nav {...props}>
       <ul className="flex space-x-2 rounded-full text-sm font-medium shadow-lg ring-1 ring-zinc-900/5 backdrop-blur bg-zinc-800/90 text-zinc-200 ring-white/10">
-        <NavItem href="/chat">Try free</NavItem>
+        <NavItem href="/signup">Try free</NavItem>
         <NavItem href="/about-us">About Us</NavItem>
         <NavItem href="/login">Sign In</NavItem>
         <NavItem href="/proyects">Proyects</NavItem>

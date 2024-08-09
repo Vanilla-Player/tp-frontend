@@ -20,17 +20,17 @@ return(
                 placeholder="Usuario"
                 value={props.username}
                 onChange={(e) => props.handleChangeInput(e)}
-                className=" bg-neutral-700 mb-6 outline-none px-1 text-neutral-300 placeholder:text-neutral-300 grow sm:grow-0"
+                className=" p-1 bg-neutral-700 mb-6 rounded-lg outline-none text-neutral-300 focus:border-neutral-300 focus:border-2 placeholder:text-neutral-400 grow sm:grow-0"
                 >
                 </input>
 
-                <input
+                {/* <input
                 type="file"
                 placeholder="Image"
                 onChange={(e) => props.handleChangeInput(e)}
-                className="bg-neutral-700 mb-6 ml-4 mr-4 outline-none text-neutral-300 placeholder:text-neutral-300 px-1 grow">
+                className="bg-neutral-700 mb-6 ml-4 mr-4 outline-none text-neutral-300 placeholder:text-neutral-400 px-1 grow">
 
-                </input>
+                </input> */}
 
         </div> 
             <div className="flex flex-row px-6 sm:px-0">
@@ -45,7 +45,7 @@ return(
                 placeholder="Contrasena"
                 value={props.password}
                 onChange={(e) => props.handleChangeInput(e)}
-                className="bg-neutral-700 mb-6 outline-none text-neutral-300 placeholder:text-neutral-300 px-1 grow"
+                className="p-1 bg-neutral-700 mb-6 rounded-lg outline-none text-neutral-300 focus:border-neutral-300 focus:border-2 placeholder:text-neutral-400 grow sm:grow-0"
                 >
                 </input>
 
@@ -54,7 +54,7 @@ return(
                 placeholder="Repita Contrasena"
                 value={props.password2}
                 onChange={(e) => props.handleChangeInput(e)}
-                className="bg-neutral-700 mb-6 ml-4 mr-4 outline-none text-neutral-300 placeholder:text-neutral-300 px-1 grow"
+                className=" p-1 ml-4 mr-4 bg-neutral-700 mb-6 rounded-lg outline-none text-neutral-300 focus:border-neutral-300 focus:border-2 placeholder:text-neutral-400 grow sm:grow-0"
                 >
                 </input>
 
@@ -79,7 +79,7 @@ return(
                 placeholder="Email"
                 value={props.email}
                 onChange={(e) => props.handleChangeInput(e)}
-                className=" bg-neutral-700 mb-6 outline-none px-1 text-neutral-300 placeholder:text-neutral-300 grow sm:grow-0"
+                className=" p-1 bg-neutral-700 mb-6 rounded-lg outline-none text-neutral-300 focus:border-neutral-300 focus:border-2 placeholder:text-neutral-400 grow sm:grow-0"
                 >
                 </input>
 
