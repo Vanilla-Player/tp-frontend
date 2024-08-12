@@ -1,5 +1,5 @@
 import { sign, verify } from "jsonwebtoken";
-import { serialize, serialize } from "cookie";
+import { serialize } from "cookie";
 
 export default async function handleLogOut(req, res){
 
