@@ -34,14 +34,15 @@ export default function Login(props) {
 
     const options = {
       method: "POST",
+      mode: "cors",  
       headers: {
         "Content-Type": "application/json",
       },
       body: JSONdata,
     };
-
-    const response = await fetch(urlSingIn, options);
-    const data = await response.json();
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + urlSingIn, options);
+    console.log(response);
+    const data = await response?.json();
     const decodeJWT = JWT.decode(data.jwt);
     const user = decodeJWT?.user || null;
 

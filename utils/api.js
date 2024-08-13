@@ -7,9 +7,10 @@ import {
   urlMessagesToSend,
 } from "./constants.js";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getUsersNotInFriendList(idUser) {
-  const endpoint = urlFriendListFilter + idUser;
+  const endpoint = apiUrl + urlFriendListFilter + idUser;
   const resUsersNotInFriendList = await fetch(endpoint);
   const usersNotInFriendList = await resUsersNotInFriendList.json();
 
@@ -17,14 +18,14 @@ export async function getUsersNotInFriendList(idUser) {
 }
 
 export async function getFriendList(idUser) {
-  const endpoint = urlFriendList + idUser;
+  const endpoint = apiUrl + urlFriendList + idUser;
   const resFriendsInList = await fetch(endpoint);
   const friendsInList = await resFriendsInList.json();
   return friendsInList;
 }
 
 export async function getArchivedMessages(idUser) {
-  const endpoint = urlArchivedMessages + idUser;
+  const endpoint = apiUrl + urlArchivedMessages + idUser;
   const resArchivedMessages = await fetch(endpoint);
   const archivedMessages = await resArchivedMessages.json();
 
@@ -32,7 +33,7 @@ export async function getArchivedMessages(idUser) {
 }
 
 export async function postArchivedMessages(idUser, messageId) {
-  const endpoint = urlArchivedMessages + idUser;
+  const endpoint = apiUrl + urlArchivedMessages + idUser;
   const body = JSON.stringify({ idMsg: messageId});
 
   const options = {
@@ -46,7 +47,7 @@ export async function postArchivedMessages(idUser, messageId) {
 }
 
 export async function deleteArchivedMessages(idUser, messageId) {
-  const endpoint = urlArchivedMessages + idUser;
+  const endpoint = apiUrl + urlArchivedMessages + idUser;
   const body = JSON.stringify({ idMsg: messageId});
 
   const options = {
@@ -62,7 +63,7 @@ export async function deleteArchivedMessages(idUser, messageId) {
 
 
 export async function getMessageHistory(idUser) {
-  const endpoint = urlMessages + idUser;
+  const endpoint = apiUrl + urlMessages + idUser;
   const resMessages = await fetch(endpoint);
   const messagesHistorial = await resMessages.json();
   return messagesHistorial;
@@ -73,7 +74,7 @@ export async function postAddFriend(friendID, userID) {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   };
-  await fetch(`${urlFriendList}/${userID}/${friendID}`, requestOptions);
+  await fetch(`${apiUrl}${urlFriendList}/${userID}/${friendID}`, requestOptions);
 
   return `Friend added: ${userID}`;
 }
@@ -95,7 +96,7 @@ export async function postMessage(message, idReceiver, idUser) {
     body: JSONdata,
   };
 
-  const response = await fetch(urlMessagesToSend, options);
+  const response = await fetch(apiUrl + urlMessagesToSend, options);
 
   return response;
 }
@@ -133,7 +134,7 @@ export async function postUser(userData){
     body: JSONdata,
   };
 
-  const response = await fetch(urlUserCreate, options)
+  const response = await fetch(apiUrl + urlUserCreate, options)
 
   return response
 
