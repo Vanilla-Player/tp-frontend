@@ -34,7 +34,7 @@ export async function getArchivedMessages(idUser) {
 
 export async function postArchivedMessages(idUser, messageId) {
   const endpoint = apiUrl + urlArchivedMessages + idUser;
-  const body = JSON.stringify({ idMsg: messageId});
+  const body = JSON.stringify({ idMsg: messageId });
 
   const options = {
     method: "POST",
@@ -48,7 +48,7 @@ export async function postArchivedMessages(idUser, messageId) {
 
 export async function deleteArchivedMessages(idUser, messageId) {
   const endpoint = apiUrl + urlArchivedMessages + idUser;
-  const body = JSON.stringify({ idMsg: messageId});
+  const body = JSON.stringify({ idMsg: messageId });
 
   const options = {
     method: "DELETE",
@@ -59,8 +59,6 @@ export async function deleteArchivedMessages(idUser, messageId) {
   };
   await fetch(endpoint, options);
 }
-
-
 
 export async function getMessageHistory(idUser) {
   const endpoint = apiUrl + urlMessages + idUser;
@@ -74,7 +72,7 @@ export async function postAddFriend(friendID, userID) {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   };
-  await fetch(`${apiUrl}${urlFriendList}/${userID}/${friendID}`, requestOptions);
+  await fetch(`${apiUrl}${urlFriendList}${userID}/${friendID}`, requestOptions);
 
   return `Friend added: ${userID}`;
 }
@@ -113,29 +111,26 @@ export function filterMessages(messages) {
   return msgs;
 }
 
-
-export async function postUser(userData){
-
+export async function postUser(userData) {
   // const bodyData = await new FormData();
 
   const { name, email, password, description } = userData;
   // for(const key in userData){
   //    await bodyData.append(key, userData[key])
   // }
-  const JSONdata = JSON.stringify({name,password,email, description})
+  const JSONdata = JSON.stringify({ name, password, email, description });
   //console.log(JSONdata)
 
   const options = {
     method: "POST",
     headers: {
       //"Content-Type": "multipart/form-data",
-      "Content-Type": "application/json", 
+      "Content-Type": "application/json",
     },
     body: JSONdata,
   };
 
-  const response = await fetch(apiUrl + urlUserCreate, options)
+  const response = await fetch(apiUrl + urlUserCreate, options);
 
-  return response
-
+  return response;
 }
