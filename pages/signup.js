@@ -64,13 +64,13 @@ export default function SignUp() {
 
   return (
     <div className="relative flex flex-col justify-center items-center h-screen w-screen bg-neutral-700">
-      {request && created && (<div class="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-green-200">
-        <div>Usuario Creado correctamente! <Link href="/login"><span class="text-green-700 hover:text-green-400 cursor-pointe">Ir a Login</span></Link></div>
-        <div class="ml-2 p-1 rounded-xl hover:bg-green-100"><button onClick={()=>{setRequest(false);setCreated(false)}}>X</button></div>
+      {request && created && (<div className="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-green-200">
+        <div>Usuario Creado correctamente! <Link href="/login"><span className="text-green-700 hover:text-green-400 cursor-pointe">Ir a Login</span></Link></div>
+        <div className="ml-2 p-1 rounded-xl hover:bg-green-100"><button onClick={()=>{setRequest(false);setCreated(false)}}>X</button></div>
       </div>)}
-      {request && !created && (<div class="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-red-200">
+      {request && !created && (<div className="flex w-auto p-2 rounded-xl mb-3 justify-center items-center bg-red-200">
         <div>Error al Crear Usuario! </div>
-        <div class="ml-2 p-1 rounded-xl hover:bg-red-100"><button onClick={()=>{setRequest(false)}}>X</button></div>
+        <div className="ml-2 p-1 rounded-xl hover:bg-red-100"><button onClick={()=>{setRequest(false)}}>X</button></div>
       </div>)}
       <div className="flex flex-col items-center justify-center bg-neutral-800 sm:w-auto sm:h-[300px] w-full h-full sm:rounded-2xl relative ">
         <div className="absolute top-0 left-0 cursor-pointer">
@@ -84,7 +84,7 @@ export default function SignUp() {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
+                strokelinecap="round"
                 strokeLinejoin="round"
                 d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
               />

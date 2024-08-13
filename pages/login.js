@@ -43,7 +43,6 @@ export default function Login(props) {
       process.env.NEXT_PUBLIC_API_AUTH_URL + urlSingIn,
       options
     );
-    console.log(response);
     const data = await response?.json();
     const decodeJWT = JWT.decode(data.jwt);
     const user = decodeJWT?.user || null;
@@ -74,7 +73,7 @@ export default function Login(props) {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
+                strokeLinecap="round"
                 strokeLinejoin="round"
                 d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
               />
@@ -90,7 +89,7 @@ export default function Login(props) {
           stroke="currentColor"
         >
           <path
-            stroke-linecap="round"
+            strokeLinecap="round"
             strokeLinejoin="round"
             d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
           />
